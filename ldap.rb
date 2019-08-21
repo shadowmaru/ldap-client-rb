@@ -9,12 +9,10 @@ class Ldap
     host: ENV['AD_HOST']
   }
 
-  puts LDAP_INFO.inspect
-
-  LDAP_BASE = 'dc=bio-ritmo, dc=com,dc=br'
+  LDAP_BASE = ENV['AD_BASE']
 
   LDAP_ADMIN_USER = {
-    user: "BIO-RITMO\\#{LDAP_INFO[:search_username]}",
+    user: "#{ENV['AD_NAMESPACE']}\\#{LDAP_INFO[:search_username]}",
     password: LDAP_INFO[:search_password]
   }
 
