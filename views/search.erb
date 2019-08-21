@@ -1,0 +1,95 @@
+<form action="/search" method="get">
+  <label for="login">Login: </label>
+  <input type="text" name="login" id="login">
+
+  <label for="name">Name: </label>
+  <input type="text" name="name" id="name">
+
+  <input type="submit" value="OK">
+</form>
+
+<p>Searched term: <%= params[:login] %> <%= params[:name] %></p>
+
+<% if @users %>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <a href="/search?login=<%= user.samaccountname.first %>">
+          <%= user.cn.first %>
+        </a>
+        (<%= user.description.first if user.respond_to?(:description) %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @user %>
+  <table>
+    <thead>
+      <tr>
+        <th>AD Attribute</th>
+        <th>Attribute</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>cn</td>
+        <td>Name</td>
+        <td><%= @user.cn.first %></td>
+      </tr>
+      <tr>
+        <td>samaccountname</td>
+        <td>Login</td>
+        <td><%= @user.samaccountname.first %></td>
+      </tr>
+      <tr>
+        <td>description</td>
+        <td>Description</td>
+        <td><%= @user.description.first if @user.respond_to?(:description) %></td>
+      </tr>
+      <tr>
+        <td>useraccountcontrol</td>
+        <td>Active?</td>
+        <td><%= enabled?(@user.useraccountcontrol.first) if @user.respond_to?(:useraccountcontrol) %></td>
+      </tr>
+      <tr>
+        <td>mail</td>
+        <td>Email</td>
+        <td><%= @user.mail.first if @user.respond_to?(:mail) %></td>
+      </tr>
+      <tr>
+        <td>postofficebox</td>
+        <td>CPF</td>
+        <td><%= @user.postofficebox.first if @user.respond_to?(:postofficebox) %></td>
+      </tr>
+      <tr>
+        <td>department</td>
+        <td>Department</td>
+        <td><%= @user.department.first if @user.respond_to?(:department) %></td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>Title</td>
+        <td><%= @user.title.first %></td>
+      </tr>
+      <tr>
+        <td>company</td>
+        <td>Location(s)</td>
+        <td><%= @user.company.first %></td>
+      </tr>
+      <tr>
+        <td>c / co</td>
+        <td>Country</td>
+        <td><%= @user.co.first if @user.respond_to?(:co) %> (<%= @user.c.first if @user.respond_to?(:c) %>)</td>
+      </tr>
+      <tr>
+        <td>mobile</td>
+        <td>Phone</td>
+        <td><%= @user.mobile.first if @user.respond_to?(:mobile) %></td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <p>User not found</p>
+<% end %>
