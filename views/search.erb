@@ -74,6 +74,11 @@
         <td><%= @user.title.first %></td>
       </tr>
       <tr>
+        <td>memberof</td>
+        <td>Member of</td>
+        <td><%= @user.memberof.map { |a| a.split(',').first.split('=').last }.join(', ') %></td>
+      </tr>
+      <tr>
         <td>company</td>
         <td>Location(s)</td>
         <td><%= @user.company.first %></td>
