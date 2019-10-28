@@ -76,7 +76,7 @@
       <tr>
         <td>memberof</td>
         <td>Member of</td>
-        <td><%= @user.memberof.map { |a| a.split(',').first.split('=').last }.join(', ') %></td>
+        <td><%= @user.memberof.map { |a| a.split(',').first.split('=').last }.join(', ') if @user.respond_to?(:memberof) %></td>
       </tr>
       <tr>
         <td>company</td>
@@ -92,6 +92,11 @@
         <td>mobile</td>
         <td>Phone</td>
         <td><%= @user.mobile.first if @user.respond_to?(:mobile) %></td>
+      </tr>
+      <tr>
+        <td>extensionAttribute14</td>
+        <td>Expiration Date</td>
+        <td><%= @user.extensionAttribute14.first if @user.respond_to?(:extensionAttribute14) %></td>
       </tr>
     </tbody>
   </table>
